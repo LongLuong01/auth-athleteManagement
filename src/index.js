@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 // routes
 app.use("/api/auth", authRoutes);
-app.use("/api/athlete", athleteRoutes);
+app.use("/api/athletes", athleteRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http:localhost:${PORT}`);
