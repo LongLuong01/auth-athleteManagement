@@ -1,30 +1,28 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const authenticateToken = (req, res, next) => {
-    // lay token tu header authorization
+const authMiddleware = (req, res, next) => {
     const authHeader = req.header('Authorization');
-    
-    if (!authHeader) {
-        return res.status(401).json({ message: 'Access denied' });
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
 
-    // Kiểm tra format token
-    const token = authHeader.split(".")[1]; // Tách từ "Bearer <JWT_TOKEN>"
-    if (!token) {
-        return res.status(401).json({ message: 'Invalid token format' });
-    }
+    const token = authHeader.split(" ")[1];
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET); // Xác thực token
-        req.user = decoded; // Lưu user đã xác thực vào req
-        next(); // Chuyển tiếp sang middleware tiếp theo
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+        next(); // Chuyển tiếp middleware
     } catch (error) {
-        return res.status(401).json({ message: 'Invalid token' });
+        let message = 'Invalid token';
+        if (error.name === 'TokenExpiredError') message = 'Token expired';
+        else if (error.name === 'JsonWebTokenError') message = 'Invalid token';
+
+        return res.status(401).json({ message });
     }
 };
 
-module.exports = authenticateToken;
-
+module.exports = authMiddleware;
 
 
