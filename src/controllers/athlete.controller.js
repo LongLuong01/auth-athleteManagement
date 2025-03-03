@@ -1,7 +1,7 @@
 const pool = require("../config/db");
 
 // them vdv moi
-const createAthlete = async (req, res) => {
+const createAthlete = async (req, res) => {   
   const { fullname, date_of_birth, gender, phone, email, address, avatar } =
     req.body;
 
