@@ -14,7 +14,7 @@ const register = async(req, res) => {
     
     try {
         // ktra email đã tồn tại chưa
-        pool.query("SELECT * FROM users WHERE email =?", [email], async (error, results) => {
+        pool.query("SELECT * FROM user WHERE email =?", [email], async (error, results) => {
             if (results.length > 0) {
                 return res.status(400).json({ message: "Email đã được sử dụng!" });
             }
@@ -24,7 +24,7 @@ const register = async(req, res) => {
             
             // thêm user mới vào db
             pool.query(
-                "INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, ?)",
+                "INSERT INTO user (fullname, email, password, role) VALUES (?, ?, ?, ?)",
                 [fullname, email, hashedPassword, role || "hlv"],
                 (err, result) => {
                     if (err) {
@@ -51,7 +51,7 @@ const login = async (req, res) => {
 
     try { 
         // tìm user theo email
-        pool.query("SELECT * FROM users WHERE email = ?", [email], async (err, results) => {
+        pool.query("SELECT * FROM user WHERE email = ?", [email], async (err, results) => {
             if (results.length ===0) {
                 return res.status(401).json({ message: "Email hoặc mật khẩu không đúng!" });
             }
