@@ -84,4 +84,37 @@ const deleteHealthMetric = async (req, res) => {
   }
 };
 
-module.exports = { createHealthMetric, getHealthMetrics, getHealthMetricById, updateHealthMetric, deleteHealthMetric };
+// Lấy danh sách health_metric theo metric_group_id
+const getHealthMetricsByGroup = async (req, res) => {
+  const { metric_group_id } = req.params; // Lấy giá trị từ URL param
+  console.log(metric_group_id)
+
+  if (!metric_group_id) {
+    return res.status(400).json({ message: "metric_group_id là bắt buộc!" });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      "SELECT * FROM health_metric WHERE metric_group_id = ?",
+      [metric_group_id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Không tìm thấy health metrics!" });
+    }
+
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi khi lấy health metrics!", error });
+  }
+};
+
+
+module.exports = { 
+  createHealthMetric, 
+  getHealthMetrics, 
+  getHealthMetricById, 
+  updateHealthMetric, 
+  deleteHealthMetric,
+  getHealthMetricsByGroup
+};
