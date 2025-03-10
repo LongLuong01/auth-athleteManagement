@@ -1,8 +1,9 @@
 const pool = require("../config/db");
 
+
 // Thêm health record mới
 const createHealthRecord = async (req, res) => {
-  const { athlete_id, metric_id, metric_value } = req.body;
+  const { athlete_id, metric_id, metric_value, recorded_at} = req.body;
 
   if (!athlete_id || !metric_id || metric_value === undefined) {
     return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin!" });
@@ -10,8 +11,8 @@ const createHealthRecord = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      "INSERT INTO health_record (athlete_id, metric_id, metric_value) VALUES (?, ?, ?)",
-      [athlete_id, metric_id, metric_value]
+      "INSERT INTO health_record (athlete_id, metric_id, metric_value, recorded_at) VALUES (?, ?, ?, ?)",
+      [athlete_id, metric_id, metric_value, recorded_at]
     );
     res.status(201).json({ message: "Thêm health record thành công!", id: result.insertId });
   } catch (error) {
