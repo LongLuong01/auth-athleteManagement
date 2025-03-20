@@ -27,6 +27,12 @@ class WellbeingReview {
       const [rows] = await db.execute("SELECT * FROM well_being_review ORDER BY created_at DESC");
       return rows;
     }
+    static async getByAthleteId (athlete_id) {
+      const sql = `SELECT * FROM well_being_review WHERE athlete_id = ? ORDER BY created_at DESC`;
+      const [rows] = await db.query(sql, [athlete_id]);
+      return rows
+    }
+
   }
   
   module.exports = WellbeingReview;
