@@ -12,6 +12,7 @@ const athleteRoutes = require("./routes/athlete.routes");
 const healthRecordsRoutes = require("./routes/healthRecords.routes");
 const metricGroupRoutes = require("./routes/metricGroup.routes")
 const healthMetricRoutes = require("./routes/healthMetric.routes")
+const wellbeingRoutes = require("./routes/wellbeing.routes");
 
 // run app
 const app = express();
@@ -27,6 +28,7 @@ app.use("/api/athletes", athleteRoutes);
 app.use("/api/health-records", healthRecordsRoutes)
 app.use("/api/metric-groups", metricGroupRoutes);
 app.use("/api/health-metrics", healthMetricRoutes);
+app.use("/api/wellbeing", wellbeingRoutes);
 
 // Console log
 app.listen(PORT, () => {
