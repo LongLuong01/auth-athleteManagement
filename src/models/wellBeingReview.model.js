@@ -27,12 +27,18 @@ class WellbeingReview {
       const [rows] = await db.execute("SELECT * FROM well_being_review ORDER BY training_date DESC");
       return rows;
     }
-    static async getByAthleteId (athlete_id) {
-      const sql = `SELECT * FROM well_being_review WHERE athlete_id = ? ORDER BY training_date DESC`;
-      const [rows] = await db.query(sql, [athlete_id]);
+    
+    static async getByAthleteId (athlete_id, limit, offset) {
+      const sql = `SELECT * FROM well_being_review WHERE athlete_id = ? ORDER BY training_date DESC LIMIT ? OFFSET ?`;
+      const [rows] = await db.query(sql, [athlete_id, limit, offset]);
       return rows
     }
 
+    static async countByAthleteId(athlete_id) {
+      const sql = `SELECT COUNT(*) AS total FROM well_being_review WHERE athlete_id = ?`;
+      const [rows] = await db.query(sql, [athlete_id]);
+      return rows[0].total;
+    }
   }
   
   module.exports = WellbeingReview;
