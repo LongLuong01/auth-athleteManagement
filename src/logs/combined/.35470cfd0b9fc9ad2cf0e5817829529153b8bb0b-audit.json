@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\longl\\Downloads\\web\\backend\\src\\logs\\combined\\.35470cfd0b9fc9ad2cf0e5817829529153b8bb0b-audit.json",
+    "files": [
+        {
+            "date": 1745547242254,
+            "name": "C:\\Users\\longl\\Downloads\\web\\backend\\src\\logs\\combined\\combined-2025-04-25.log",
+            "hash": "a27be1315a285160857ec6485bf7a9262e5110516c41420d307428100e18a7b0"
+        }
+    ],
+    "hashType": "sha256"
+}
