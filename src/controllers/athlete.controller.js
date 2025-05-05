@@ -2,20 +2,52 @@ const pool = require("../config/db");
 
 // Thêm vận động viên mới
 const createAthlete = async (req, res) => {
-  const { fullname, date_of_birth, gender, phone, email, address, avatar, password } = req.body;
+  const { fullname, date_of_birth, gender, phone, email, address, avatar, password, age_group_id, sport_id } = req.body;
 
   if (!fullname || !date_of_birth || !gender) {
     return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin!" });
   }
 
+  const connection = await pool.getConnection();
   try {
-    const [result] = await pool.query(
+    await connection.beginTransaction();
+
+    // Thêm vận động viên
+    const [result] = await connection.query(
       "INSERT INTO athlete (fullname, date_of_birth, gender, phone, email, address, avatar, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [fullname, date_of_birth, gender, phone, email, address, avatar, password]
     );
-    res.status(201).json({ message: "Thêm vận động viên thành công!", id: result.insertId });
+    const athleteId = result.insertId;
+
+    // Thêm vào athlete_age_group nếu có
+    if (age_group_id) {
+      const ageGroupIds = Array.isArray(age_group_id) ? age_group_id : [age_group_id];
+      for (const agId of ageGroupIds) {
+        await connection.query(
+          "INSERT INTO athlete_age_group (athlete_id, age_group_id) VALUES (?, ?)",
+          [athleteId, agId]
+        );
+      }
+    }
+
+    // Thêm vào athlete_sport nếu có
+    if (sport_id) {
+      const sportIds = Array.isArray(sport_id) ? sport_id : [sport_id];
+      for (const sId of sportIds) {
+        await connection.query(
+          "INSERT INTO athlete_sport (athlete_id, sport_id) VALUES (?, ?)",
+          [athleteId, sId]
+        );
+      }
+    }
+
+    await connection.commit();
+    res.status(201).json({ message: "Thêm vận động viên thành công!", id: athleteId });
   } catch (error) {
+    await connection.rollback();
     res.status(500).json({ message: "Lỗi khi thêm vận động viên!", error });
+  } finally {
+    connection.release();
   }
 };
 

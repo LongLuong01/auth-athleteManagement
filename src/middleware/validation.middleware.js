@@ -37,10 +37,10 @@ const validateAthlete = [
     .isLength({ max: 255 })
     .withMessage('Địa chỉ không được quá 255 ký tự'),
   
-  body('avatar')
-    .optional()
-    .isURL()
-    .withMessage('Avatar phải là URL hợp lệ'),
+  // body('avatar')
+  //   .optional()
+  //   .isURL()
+  //   .withMessage('Avatar phải là URL hợp lệ'),
   
   body('password')
     .notEmpty()

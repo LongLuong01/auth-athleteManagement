@@ -1,0 +1,4 @@
+2025-05-03 20:58:22:5822 [32minfo[39m: [32mThông tin khởi động server[39m
+2025-05-03 20:58:23:5823 [33mwarn[39m: [33mCảnh báo: Đang sử dụng port mặc định[39m
+2025-05-03 20:58:23:5823 [31merror[39m: [31mLỗi: Không thể kết nối database[39m
+2025-05-03 20:58:23:5823 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
