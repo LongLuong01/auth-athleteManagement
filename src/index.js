@@ -8,11 +8,11 @@ const pool = require("./config/db");
 const { logger, stream } = require("./config/logger");
 const { compareSync } = require("bcryptjs");
 
-// Test các cấp độ log
-logger.info('Thông tin khởi động server');
-logger.warn('Cảnh báo: Đang sử dụng port mặc định');
-logger.debug('Debug: Chi tiết cấu hình');
-logger.error('Lỗi: Không thể kết nối database');
+// // Test các cấp độ log
+// logger.info('Thông tin khởi động server');
+// logger.warn('Cảnh báo: Đang sử dụng port mặc định');
+// logger.debug('Debug: Chi tiết cấu hình');
+// logger.error('Lỗi: Không thể kết nối database');
 
 // routes variables
 const authRoutes = require("./routes/auth.routes");

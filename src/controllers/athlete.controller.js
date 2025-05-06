@@ -53,11 +53,20 @@ const createAthlete = async (req, res) => {
 
 // Lấy danh sách vận động viên
 const getAthletes = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 4;
+  const offset = (page - 1) * limit;
+
   try {
-    const [rows] = await pool.query("SELECT * FROM athlete");
-    res.status(200).json(rows);
+    const [rows] = await pool.query("SELECT * FROM athlete LIMIT ? OFFSET ?", [limit, offset]);
+    // Đếm tổng số bản ghi (nếu muốn trả về tổng số trang)
+    const [[{ total }]] = await pool.query("SELECT COUNT(*) as total FROM athlete");
+    res.status(200).json({ data: rows, total, page, limit });
+    // res.status(200).json(rows);
+
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy danh sách vận động viên!", error });
+    console.error("Lỗi khi lấy danh sách vận động viên:", error); // log chi tiết ở server
+    res.status(500).json({ message: "Lỗi khi lấy danh sách vận động viên!" });
   }
 };
 

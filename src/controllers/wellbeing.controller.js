@@ -39,3 +39,30 @@ exports.getReviewsByAthleteId = async (req, res) => {
   }
 }
 
+const getAthletes = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 3;
+  const offset = (page - 1) * limit;
+
+  try {
+    // Không trả về password
+    const [rows] = await pool.query(
+      "SELECT id, fullname, date_of_birth, gender, phone, email, address, avatar FROM athlete LIMIT ? OFFSET ?",
+      [limit, offset]
+    );
+    // Đếm tổng số bản ghi (nếu muốn trả về tổng số trang)
+    const [[{ total }]] = await pool.query("SELECT COUNT(*) as total FROM athlete");
+
+    res.status(200).json({
+      data: rows,
+      page,
+      limit,
+      total
+    });
+  } catch (error) {
+    // Log lỗi chi tiết ở server, trả về message chung cho client
+    console.error("Lỗi khi lấy danh sách vận động viên:", error);
+    res.status(500).json({ message: "Lỗi khi lấy danh sách vận động viên!" });
+  }
+};
+
