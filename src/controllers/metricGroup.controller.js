@@ -1,22 +1,13 @@
-const pool = require("../config/db");
+const MetricGroupService = require("../services/metricGroup.service");
 const { logger } = require("../config/logger");
 
 // Thêm nhóm chỉ số sức khỏe mới
 const createMetricGroup = async (req, res) => {
-  const { name, description } = req.body;
-
-  if (!name) {
-    return res.status(400).json({ message: "Tên nhóm chỉ số là bắt buộc!" });
-  }
-
   try {
-    const [result] = await pool.query(
-      "INSERT INTO metric_group (name, description) VALUES (?, ?)",
-      [name, description]
-    );
-    res.status(201).json({ id: result.insertId, name, description });
-  } catch (err) {
-    logger.error("Lỗi khi thêm nhóm chỉ số:", err);
+    const result = await MetricGroupService.createMetricGroup(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    logger.error("Lỗi khi thêm nhóm chỉ số:", error);
     res.status(500).json({ message: "Lỗi khi thêm nhóm chỉ số!" });
   }
 };
@@ -24,65 +15,52 @@ const createMetricGroup = async (req, res) => {
 // Lấy danh sách nhóm chỉ số sức khỏe
 const getMetricGroups = async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM metric_group");
+    const rows = await MetricGroupService.getMetricGroups();
     res.status(200).json(rows);
-  } catch (err) {
-    logger.error("Lỗi khi lấy danh sách nhóm chỉ số:", err);
+  } catch (error) {
+    logger.error("Lỗi khi lấy danh sách nhóm chỉ số:", error);
     res.status(500).json({ message: "Lỗi khi lấy danh sách nhóm chỉ số!" });
   }
 };
 
 // Lấy nhóm chỉ số theo ID
 const getMetricGroupById = async (req, res) => {
-  const { id } = req.params;
   try {
-    const [rows] = await pool.query("SELECT * FROM metric_group WHERE id = ?", [id]);
-    if (rows.length === 0) {
+    const row = await MetricGroupService.getMetricGroupById(req.params.id);
+    if (!row) {
       return res.status(404).json({ message: "Nhóm chỉ số không tồn tại!" });
     }
-    res.status(200).json(rows[0]);
-  } catch (err) {
-    logger.error("Lỗi khi lấy nhóm chỉ số:", err);
+    res.status(200).json(row);
+  } catch (error) {
+    logger.error("Lỗi khi lấy nhóm chỉ số:", error);
     res.status(500).json({ message: "Lỗi khi lấy nhóm chỉ số!" });
   }
 };
 
 // Cập nhật nhóm chỉ số
 const updateMetricGroup = async (req, res) => {
-  const { id } = req.params;
-  const { name, description } = req.body;
-
   try {
-    const [result] = await pool.query(
-      "UPDATE metric_group SET name = ?, description = ? WHERE id = ?",
-      [name, description, id]
-    );
-    
-    if (result.affectedRows === 0) {
+    const affectedRows = await MetricGroupService.updateMetricGroup(req.params.id, req.body);
+    if (affectedRows === 0) {
       return res.status(404).json({ message: "Nhóm chỉ số không tồn tại!" });
     }
-
     res.status(200).json({ message: "Cập nhật nhóm chỉ số thành công!" });
-  } catch (err) {
-    logger.error("Lỗi khi cập nhật nhóm chỉ số:", err);
+  } catch (error) {
+    logger.error("Lỗi khi cập nhật nhóm chỉ số:", error);
     res.status(500).json({ message: "Lỗi khi cập nhật nhóm chỉ số!" });
   }
 };
 
 // Xóa nhóm chỉ số
 const deleteMetricGroup = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const [result] = await pool.query("DELETE FROM metric_group WHERE id = ?", [id]);
-
-    if (result.affectedRows === 0) {
+    const affectedRows = await MetricGroupService.deleteMetricGroup(req.params.id);
+    if (affectedRows === 0) {
       return res.status(404).json({ message: "Nhóm chỉ số không tồn tại!" });
     }
-
     res.status(200).json({ message: "Xóa nhóm chỉ số thành công!" });
-  } catch (err) {
-    logger.error("Lỗi khi xóa nhóm chỉ số:", err);
+  } catch (error) {
+    logger.error("Lỗi khi xóa nhóm chỉ số:", error);
     res.status(500).json({ message: "Lỗi khi xóa nhóm chỉ số!" });
   }
 };
