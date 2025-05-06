@@ -47,6 +47,8 @@ const validateAthlete = [
     .withMessage('Mật khẩu không được để trống')
     .isLength({ min: 6 })
     .withMessage('Mật khẩu phải có ít nhất 6 ký tự')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/)
+    .withMessage('Mật khẩu phải có ít nhất 1 ký tự thường, 1 ký tự hoa và 1 ký tự đặc biệt')
 ];
 
 // Middleware xử lý kết quả validation
