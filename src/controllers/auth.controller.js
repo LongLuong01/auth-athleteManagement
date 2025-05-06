@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const pool = require("../config/db");
+const { logger } = require("../config/logger");
 
 require("dotenv").config();
 
@@ -13,13 +14,14 @@ const register = async (req, res) => {
   }
 
   try {
-    // ktra email đã tồn tại chưa
     pool.query(
       "SELECT * FROM user WHERE email =?",
       [email],
       async (error, results) => {
-        if (error)
-          return res.status(500).json({ message: "Lỗi database", error });
+        if (error) {
+          logger.error("Lỗi database khi kiểm tra email:", error);
+          return res.status(500).json({ message: "Lỗi database" });
+        }
 
         if (results.length > 0) {
           return res.status(400).json({ message: "Email đã được sử dụng!" });
@@ -34,9 +36,8 @@ const register = async (req, res) => {
           [fullname, email, hashedPassword, role || "hlv"],
           (err, result) => {
             if (err) {
-              return res
-                .status(500)
-                .json({ message: "Đăng ký không thành công", error: err });
+              logger.error("Lỗi khi đăng ký user:", err);
+              return res.status(500).json({ message: "Đăng ký không thành công" });
             }
             return res.status(201).json({ message: "Đăng ký thành công!" });
           }
@@ -44,7 +45,8 @@ const register = async (req, res) => {
       }
     );
   } catch (error) {
-    return res.status(500).json({ message: "Lỗi server!", error });
+    logger.error("Lỗi server khi đăng ký:", error);
+    return res.status(500).json({ message: "Lỗi server!" });
   }
 };
 
@@ -93,8 +95,8 @@ const login = async (req, res) => {
       .status(200)
       .json({ message: "Đăng nhập thành công!", token, user });
   } catch (error) {
-    console.error("Lỗi khi đăng nhập:", error);
-    return res.status(500).json({ message: "Lỗi server!", error });
+    logger.error("Lỗi khi đăng nhập:", error);
+    return res.status(500).json({ message: "Lỗi server!" });
   }
 };
 

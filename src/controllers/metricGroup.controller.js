@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const { logger } = require("../config/logger");
 
 // Thêm nhóm chỉ số sức khỏe mới
 const createMetricGroup = async (req, res) => {
@@ -15,7 +16,8 @@ const createMetricGroup = async (req, res) => {
     );
     res.status(201).json({ id: result.insertId, name, description });
   } catch (err) {
-    res.status(500).json({ message: "Lỗi khi thêm nhóm chỉ số!", error: err });
+    logger.error("Lỗi khi thêm nhóm chỉ số:", err);
+    res.status(500).json({ message: "Lỗi khi thêm nhóm chỉ số!" });
   }
 };
 
@@ -25,7 +27,8 @@ const getMetricGroups = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM metric_group");
     res.status(200).json(rows);
   } catch (err) {
-    res.status(500).json({ message: "Lỗi khi lấy danh sách nhóm chỉ số!", error: err });
+    logger.error("Lỗi khi lấy danh sách nhóm chỉ số:", err);
+    res.status(500).json({ message: "Lỗi khi lấy danh sách nhóm chỉ số!" });
   }
 };
 
@@ -39,7 +42,8 @@ const getMetricGroupById = async (req, res) => {
     }
     res.status(200).json(rows[0]);
   } catch (err) {
-    res.status(500).json({ message: "Lỗi khi lấy nhóm chỉ số!", error: err });
+    logger.error("Lỗi khi lấy nhóm chỉ số:", err);
+    res.status(500).json({ message: "Lỗi khi lấy nhóm chỉ số!" });
   }
 };
 
@@ -60,7 +64,8 @@ const updateMetricGroup = async (req, res) => {
 
     res.status(200).json({ message: "Cập nhật nhóm chỉ số thành công!" });
   } catch (err) {
-    res.status(500).json({ message: "Lỗi khi cập nhật nhóm chỉ số!", error: err });
+    logger.error("Lỗi khi cập nhật nhóm chỉ số:", err);
+    res.status(500).json({ message: "Lỗi khi cập nhật nhóm chỉ số!" });
   }
 };
 
@@ -77,7 +82,8 @@ const deleteMetricGroup = async (req, res) => {
 
     res.status(200).json({ message: "Xóa nhóm chỉ số thành công!" });
   } catch (err) {
-    res.status(500).json({ message: "Lỗi khi xóa nhóm chỉ số!", error: err });
+    logger.error("Lỗi khi xóa nhóm chỉ số:", err);
+    res.status(500).json({ message: "Lỗi khi xóa nhóm chỉ số!" });
   }
 };
 

@@ -1,11 +1,13 @@
 const WellbeingReview = require("../models/wellBeingReview.model");
+const { logger } = require("../config/logger");
 
 exports.createReview = async (req, res) => {
   try {
     const newReview = await WellbeingReview.create(req.body);
     res.status(201).json({ message: "Review added successfully", newReview });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error("Lỗi khi thêm wellbeing review:", error);
+    res.status(500).json({ message: "Lỗi khi thêm wellbeing review!" });
   }
 };
 
@@ -14,7 +16,8 @@ exports.getReviews = async (req, res) => {
     const reviews = await WellbeingReview.getAll();
     res.status(200).json(reviews);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error("Lỗi khi lấy danh sách wellbeing review:", error);
+    res.status(500).json({ message: "Lỗi khi lấy danh sách wellbeing review!" });
   }
 };
 
@@ -34,35 +37,8 @@ exports.getReviewsByAthleteId = async (req, res) => {
     
     res.json({ reviews, total });
   } catch (error) {
-    console.error("Lỗi khi lấy review:", error);
-    res.status(500).json({ message: "Lỗi server" });
+    logger.error("Lỗi khi lấy wellbeing review theo athlete_id:", error);
+    res.status(500).json({ message: "Lỗi khi lấy wellbeing review!" });
   }
 }
-
-const getAthletes = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 3;
-  const offset = (page - 1) * limit;
-
-  try {
-    // Không trả về password
-    const [rows] = await pool.query(
-      "SELECT id, fullname, date_of_birth, gender, phone, email, address, avatar FROM athlete LIMIT ? OFFSET ?",
-      [limit, offset]
-    );
-    // Đếm tổng số bản ghi (nếu muốn trả về tổng số trang)
-    const [[{ total }]] = await pool.query("SELECT COUNT(*) as total FROM athlete");
-
-    res.status(200).json({
-      data: rows,
-      page,
-      limit,
-      total
-    });
-  } catch (error) {
-    // Log lỗi chi tiết ở server, trả về message chung cho client
-    console.error("Lỗi khi lấy danh sách vận động viên:", error);
-    res.status(500).json({ message: "Lỗi khi lấy danh sách vận động viên!" });
-  }
-};
 

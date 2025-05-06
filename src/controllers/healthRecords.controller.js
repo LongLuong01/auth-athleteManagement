@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const { logger } = require("../config/logger");
 
 
 // Thêm health record mới
@@ -16,7 +17,8 @@ const createHealthRecord = async (req, res) => {
     );
     res.status(201).json({ message: "Thêm health record thành công!", id: result.insertId });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi thêm health record!", error });
+    logger.error("Lỗi khi thêm health record:", error);
+    res.status(500).json({ message: "Lỗi khi thêm health record!" });
   }
 };
 
@@ -26,7 +28,8 @@ const getHealthRecords = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM health_record");
     res.status(200).json(rows);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy danh sách health records!", error });
+    logger.error("Lỗi khi lấy danh sách health records:", error);
+    res.status(500).json({ message: "Lỗi khi lấy danh sách health records!" });
   }
 };
 
@@ -43,7 +46,8 @@ const getHealthRecordById = async (req, res) => {
 
     res.status(200).json(rows[0]);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy health record!", error });
+    logger.error("Lỗi khi lấy health record:", error);
+    res.status(500).json({ message: "Lỗi khi lấy health record!" });
   }
 };
 
@@ -64,7 +68,8 @@ const updateHealthRecord = async (req, res) => {
 
     res.status(200).json({ message: "Cập nhật health record thành công!" });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi cập nhật health record!", error });
+    logger.error("Lỗi khi cập nhật health record:", error);
+    res.status(500).json({ message: "Lỗi khi cập nhật health record!" });
   }
 };
 
@@ -81,7 +86,8 @@ const deleteHealthRecord = async (req, res) => {
 
     res.status(200).json({ message: "Xóa health record thành công!" });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi xóa health record!", error });
+    logger.error("Lỗi khi xóa health record:", error);
+    res.status(500).json({ message: "Lỗi khi xóa health record!" });
   }
 };
 

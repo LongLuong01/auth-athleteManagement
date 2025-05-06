@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const { logger } = require("../config/logger");
 
 // Thêm health metric mới
 const createHealthMetric = async (req, res) => {
@@ -15,7 +16,8 @@ const createHealthMetric = async (req, res) => {
     );
     res.status(201).json({ message: "Thêm health metric thành công!", id: result.insertId });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi thêm health metric!", error });
+    logger.error("Lỗi khi thêm health metric:", error);
+    res.status(500).json({ message: "Lỗi khi thêm health metric!" });
   }
 };
 
@@ -25,7 +27,8 @@ const getHealthMetrics = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM health_metric");
     res.status(200).json(rows);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy danh sách health metrics!", error });
+    logger.error("Lỗi khi lấy danh sách health metrics:", error);
+    res.status(500).json({ message: "Lỗi khi lấy danh sách health metrics!" });
   }
 };
 
@@ -42,7 +45,8 @@ const getHealthMetricById = async (req, res) => {
 
     res.status(200).json(rows[0]);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy health metric!", error });
+    logger.error("Lỗi khi lấy health metric:", error);
+    res.status(500).json({ message: "Lỗi khi lấy health metric!" });
   }
 };
 
@@ -63,7 +67,8 @@ const updateHealthMetric = async (req, res) => {
 
     res.status(200).json({ message: "Cập nhật health metric thành công!" });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi cập nhật health metric!", error });
+    logger.error("Lỗi khi cập nhật health metric:", error);
+    res.status(500).json({ message: "Lỗi khi cập nhật health metric!" });
   }
 };
 
@@ -80,14 +85,14 @@ const deleteHealthMetric = async (req, res) => {
 
     res.status(200).json({ message: "Xóa health metric thành công!" });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi xóa health metric!", error });
+    logger.error("Lỗi khi xóa health metric:", error);
+    res.status(500).json({ message: "Lỗi khi xóa health metric!" });
   }
 };
 
 // Lấy danh sách health_metric theo metric_group_id
 const getHealthMetricsByGroup = async (req, res) => {
-  const { metric_group_id } = req.params; // Lấy giá trị từ URL param
-  console.log(metric_group_id)
+  const { metric_group_id } = req.params;
 
   if (!metric_group_id) {
     return res.status(400).json({ message: "metric_group_id là bắt buộc!" });
@@ -105,10 +110,10 @@ const getHealthMetricsByGroup = async (req, res) => {
 
     res.status(200).json(rows);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy health metrics!", error });
+    logger.error("Lỗi khi lấy health metrics theo group:", error);
+    res.status(500).json({ message: "Lỗi khi lấy health metrics!" });
   }
 };
-
 
 module.exports = { 
   createHealthMetric, 

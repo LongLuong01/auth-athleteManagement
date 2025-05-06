@@ -1,4 +1,6 @@
 const pool = require("../config/db");
+const bcrypt = require("bcryptjs");
+const { logger } = require("../config/logger");
 
 // Thêm vận động viên mới
 const createAthlete = async (req, res) => {
@@ -45,7 +47,8 @@ const createAthlete = async (req, res) => {
     res.status(201).json({ message: "Thêm vận động viên thành công!", id: athleteId });
   } catch (error) {
     await connection.rollback();
-    res.status(500).json({ message: "Lỗi khi thêm vận động viên!", error });
+    logger.error("Lỗi khi thêm vận động viên:", error);
+    res.status(500).json({ message: "Lỗi khi thêm vận động viên!" });
   } finally {
     connection.release();
   }
@@ -62,10 +65,8 @@ const getAthletes = async (req, res) => {
     // Đếm tổng số bản ghi (nếu muốn trả về tổng số trang)
     const [[{ total }]] = await pool.query("SELECT COUNT(*) as total FROM athlete");
     res.status(200).json({ data: rows, total, page, limit });
-    // res.status(200).json(rows);
-
   } catch (error) {
-    console.error("Lỗi khi lấy danh sách vận động viên:", error); // log chi tiết ở server
+    logger.error("Lỗi khi lấy danh sách vận động viên:", error);
     res.status(500).json({ message: "Lỗi khi lấy danh sách vận động viên!" });
   }
 };
@@ -83,7 +84,8 @@ const getAthleteById = async (req, res) => {
 
     res.status(200).json(rows[0]);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi lấy vận động viên!", error });
+    logger.error("Lỗi khi lấy vận động viên:", error);
+    res.status(500).json({ message: "Lỗi khi lấy vận động viên!" });
   }
 };
 
@@ -104,7 +106,8 @@ const updateAthlete = async (req, res) => {
 
     res.status(200).json({ message: "Cập nhật vận động viên thành công!" });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi cập nhật vận động viên!", error });
+    logger.error("Lỗi khi cập nhật vận động viên:", error);
+    res.status(500).json({ message: "Lỗi khi cập nhật vận động viên!" });
   }
 };
 
@@ -121,7 +124,8 @@ const deleteAthlete = async (req, res) => {
 
     res.status(200).json({ message: "Xóa vận động viên thành công!" });
   } catch (error) {
-    res.status(500).json({ message: "Lỗi khi xóa vận động viên!", error });
+    logger.error("Lỗi khi xóa vận động viên:", error);
+    res.status(500).json({ message: "Lỗi khi xóa vận động viên!" });
   }
 };
 
