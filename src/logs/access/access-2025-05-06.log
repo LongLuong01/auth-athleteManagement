@@ -292,3 +292,23 @@
 2025-05-06 16:36:14:3614 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-06 16:36:40:3640 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-06 16:36:46:3646 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:36:47:3647 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:37:04:374 [35mhttp[39m: [35m::1 - - [06/May/2025:09:37:04 +0000] "GET /api/health-metrics HTTP/1.1" 200 1942 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:37:11:3711 [35mhttp[39m: [35m::1 - - [06/May/2025:09:37:11 +0000] "GET /api/health-metrics/15 HTTP/1.1" 200 109 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:37:16:3716 [35mhttp[39m: [35m::1 - - [06/May/2025:09:37:16 +0000] "GET /api/health-metrics/1 HTTP/1.1" 200 109 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:37:20:3720 [35mhttp[39m: [35m::1 - - [06/May/2025:09:37:20 +0000] "GET /api/health-metrics/2 HTTP/1.1" 200 118 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:37:24:3724 [35mhttp[39m: [35m::1 - - [06/May/2025:09:37:24 +0000] "GET /api/health-metrics/filter/11 HTTP/1.1" 404 48 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:37:32:3732 [35mhttp[39m: [35m::1 - - [06/May/2025:09:37:32 +0000] "GET /api/health-metrics/filter/1 HTTP/1.1" 200 1942 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:40:24:4024 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:40:28:4028 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:40:30:4030 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:40:48:4048 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:40:53:4053 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:40:54:4054 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:40:54:4054 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:41:12:4112 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:41:13:4113 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:41:14:4114 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:41:21:4121 [35mhttp[39m: [35m::1 - - [06/May/2025:09:41:21 +0000] "GET /api/health-records HTTP/1.1" 200 6326 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:41:26:4126 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:41:29:4129 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m

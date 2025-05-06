@@ -1,21 +1,11 @@
-const pool = require("../config/db");
+const HealthRecordsService = require("../services/healthRecords.service");
 const { logger } = require("../config/logger");
-
 
 // Thêm health record mới
 const createHealthRecord = async (req, res) => {
-  const { athlete_id, metric_id, metric_value, recorded_at} = req.body;
-
-  if (!athlete_id || !metric_id || metric_value === undefined) {
-    return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin!" });
-  }
-
   try {
-    const [result] = await pool.query(
-      "INSERT INTO health_record (athlete_id, metric_id, metric_value, recorded_at) VALUES (?, ?, ?, ?)",
-      [athlete_id, metric_id, metric_value, recorded_at]
-    );
-    res.status(201).json({ message: "Thêm health record thành công!", id: result.insertId });
+    const id = await HealthRecordsService.createHealthRecord(req.body);
+    res.status(201).json({ message: "Thêm health record thành công!", id });
   } catch (error) {
     logger.error("Lỗi khi thêm health record:", error);
     res.status(500).json({ message: "Lỗi khi thêm health record!" });
@@ -25,7 +15,7 @@ const createHealthRecord = async (req, res) => {
 // Lấy danh sách health records
 const getHealthRecords = async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM health_record");
+    const rows = await HealthRecordsService.getHealthRecords();
     res.status(200).json(rows);
   } catch (error) {
     logger.error("Lỗi khi lấy danh sách health records:", error);
@@ -35,16 +25,12 @@ const getHealthRecords = async (req, res) => {
 
 // Lấy health record theo ID
 const getHealthRecordById = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const [rows] = await pool.query("SELECT * FROM health_record WHERE id = ?", [id]);
-
-    if (rows.length === 0) {
+    const row = await HealthRecordsService.getHealthRecordById(req.params.id);
+    if (!row) {
       return res.status(404).json({ message: "Không tìm thấy health record!" });
     }
-
-    res.status(200).json(rows[0]);
+    res.status(200).json(row);
   } catch (error) {
     logger.error("Lỗi khi lấy health record:", error);
     res.status(500).json({ message: "Lỗi khi lấy health record!" });
@@ -53,19 +39,11 @@ const getHealthRecordById = async (req, res) => {
 
 // Cập nhật health record
 const updateHealthRecord = async (req, res) => {
-  const { id } = req.params;
-  const { athlete_id, metric_id, metric_value } = req.body;
-
   try {
-    const [result] = await pool.query(
-      "UPDATE health_record SET athlete_id = ?, metric_id = ?, metric_value = ? WHERE id = ?",
-      [athlete_id, metric_id, metric_value, id]
-    );
-
-    if (result.affectedRows === 0) {
+    const affectedRows = await HealthRecordsService.updateHealthRecord(req.params.id, req.body);
+    if (affectedRows === 0) {
       return res.status(404).json({ message: "Không tìm thấy health record!" });
     }
-
     res.status(200).json({ message: "Cập nhật health record thành công!" });
   } catch (error) {
     logger.error("Lỗi khi cập nhật health record:", error);
@@ -75,15 +53,11 @@ const updateHealthRecord = async (req, res) => {
 
 // Xóa health record
 const deleteHealthRecord = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const [result] = await pool.query("DELETE FROM health_record WHERE id = ?", [id]);
-
-    if (result.affectedRows === 0) {
+    const affectedRows = await HealthRecordsService.deleteHealthRecord(req.params.id);
+    if (affectedRows === 0) {
       return res.status(404).json({ message: "Không tìm thấy health record!" });
     }
-
     res.status(200).json({ message: "Xóa health record thành công!" });
   } catch (error) {
     logger.error("Lỗi khi xóa health record:", error);
@@ -94,36 +68,18 @@ const deleteHealthRecord = async (req, res) => {
 // Lấy health records theo athlete_id, metric_id và khoảng thời gian
 const getHealthRecordsByAthleteAndMetric = async (req, res) => {
   const { athlete_id, metric_id, fromDate, toDate } = req.params;
-  
-
-  console.log(`Received request - athlete_id: ${athlete_id}, metric_id: ${metric_id}, fromDate: ${fromDate}, toDate: ${toDate}`);
-
   if (!athlete_id || !metric_id || !fromDate || !toDate) {
-    console.log("Missing required parameters");
     return res.status(400).json({ message: "athlete_id, metric_id, fromDate và toDate là bắt buộc!" });
   }
-
   try {
-    const [records] = await pool.query(
-      `SELECT * FROM health_record 
-       WHERE athlete_id = ? AND metric_id = ? 
-       AND DATE(recorded_at) BETWEEN ? AND ? 
-       ORDER BY recorded_at ASC`,
-      [athlete_id, metric_id, fromDate, toDate]
-    );
-
-    console.log("From Date:", fromDate, " / To Date: ", toDate);
-
-    //ko tim thay
-    if (records.length === 0) {
-      console.log(`No health records found for athlete_id: ${athlete_id}, metric_id: ${metric_id}`);
+    const records = await HealthRecordsService.getHealthRecordsByAthleteAndMetric(athlete_id, metric_id, fromDate, toDate);
+    if (!records || records.length === 0) {
       return res.status(404).json({ message: "Không tìm thấy health records!" });
     }
-
     res.status(200).json(records);
   } catch (error) {
-    console.error("Database error:", error);
-    res.status(500).json({ message: "Lỗi khi lấy health records!", error });
+    logger.error("Lỗi khi lấy health records theo filter:", error);
+    res.status(500).json({ message: "Lỗi khi lấy health records!" });
   }
 };
 
