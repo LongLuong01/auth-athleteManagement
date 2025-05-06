@@ -283,3 +283,12 @@
 2025-05-06 16:29:19:2919 [35mhttp[39m: [35m::1 - - [06/May/2025:09:29:19 +0000] "GET /api/wellbeing/athlete?athlete_id=1&page=1&limit=3 HTTP/1.1" 200 775 "-" "PostmanRuntime/7.43.4"[39m
 2025-05-06 16:29:29:2929 [35mhttp[39m: [35m::1 - - [06/May/2025:09:29:29 +0000] "GET /api/wellbeing/athlete?athlete_id=1&page=2&limit=3 HTTP/1.1" 200 757 "-" "PostmanRuntime/7.43.4"[39m
 2025-05-06 16:29:34:2934 [35mhttp[39m: [35m::1 - - [06/May/2025:09:29:34 +0000] "GET /api/wellbeing/athlete?athlete_id=1&page=1&limit=3 HTTP/1.1" 200 775 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:29:55:2955 [35mhttp[39m: [35m::1 - - [06/May/2025:09:29:55 +0000] "GET /api/wellbeing/athlete?athlete_id=1&page=1&limit=10 HTTP/1.1" 200 2487 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:30:21:3021 [35mhttp[39m: [35m::1 - - [06/May/2025:09:30:21 +0000] "GET /api/wellbeing/athlete?athlete_id=1&page=2&limit=10 HTTP/1.1" 200 1769 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:30:31:3031 [35mhttp[39m: [35m::1 - - [06/May/2025:09:30:31 +0000] "GET /api/wellbeing/athlete?athlete_id=2&page=1&limit=10 HTTP/1.1" 200 519 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:35:51:3551 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:35:56:3556 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:35:57:3557 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:36:14:3614 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:36:40:3640 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:36:46:3646 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
