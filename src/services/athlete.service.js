@@ -66,7 +66,11 @@ const AthleteService = {
 
   async deleteAthlete(id) {
     return await AthleteModel.delete(id);
-  }
+  },
+
+  async getAllAthletes() {
+    return await AthleteModel.getAllWithoutPagination();
+  },
 };
 
 module.exports = AthleteService;

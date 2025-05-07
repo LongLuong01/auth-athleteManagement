@@ -2,7 +2,10 @@ const express = require('express');
 const authenticateToken = require('../middleware/auth.middleware');
 const { validateAthlete, handleValidationErrors } = require('../middleware/validation.middleware');
 const router = express.Router();
-const { createAthlete, getAthletes, getAthleteById, updateAthlete, deleteAthlete } = require('../controllers/athlete.controller');
+const { createAthlete, getAthletes, getAthleteById, updateAthlete, deleteAthlete, getAllAthletes } = require('../controllers/athlete.controller');
+
+// Route lấy tất cả athlete không phân trang (đặt trước các route có param)
+router.get("/all", getAllAthletes);
 
 // Các route đều yêu cầu đăng nhập
 router.post("/", authenticateToken, validateAthlete, handleValidationErrors, createAthlete); // Thêm vận động viên

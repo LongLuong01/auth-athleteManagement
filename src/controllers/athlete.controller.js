@@ -67,4 +67,15 @@ const deleteAthlete = async (req, res) => {
   }
 };
 
-module.exports = { createAthlete, getAthletes, getAthleteById, updateAthlete, deleteAthlete };
+// Lấy tất cả vận động viên không phân trang
+const getAllAthletes = async (req, res) => {
+  try {
+    const athletes = await AthleteService.getAllAthletes();
+    res.status(200).json(athletes);
+  } catch (error) {
+    logger.error("Lỗi khi lấy danh sách tất cả vận động viên:", error);
+    res.status(500).json({ message: "Lỗi khi lấy danh sách vận động viên!" });
+  }
+};
+
+module.exports = { createAthlete, getAthletes, getAthleteById, updateAthlete, deleteAthlete, getAllAthletes };

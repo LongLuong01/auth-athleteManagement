@@ -85,7 +85,12 @@ const AthleteModel = {
   async delete(id) {
     const [result] = await pool.query("DELETE FROM athlete WHERE id = ?", [id]);
     return result.affectedRows;
-  }
+  },
+
+  async getAllWithoutPagination() {
+    const [rows] = await pool.query("SELECT * FROM athlete");
+    return rows;
+  },
 };
 
 module.exports = AthleteModel;
