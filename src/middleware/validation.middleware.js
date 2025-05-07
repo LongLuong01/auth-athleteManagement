@@ -51,6 +51,20 @@ const validateAthlete = [
     .withMessage('Mật khẩu phải có ít nhất 1 ký tự thường, 1 ký tự hoa và 1 ký tự đặc biệt')
 ];
 
+// Validation rules cho age_group
+const validateAgeGroup = [
+  body('name')
+    .notEmpty()
+    .withMessage('Tên nhóm tuổi không được để trống')
+    .isLength({ max: 255 })
+    .withMessage('Tên nhóm tuổi không được vượt quá 255 ký tự'),
+  
+  body('description')
+    .optional()
+    .isLength({ max: 1000 })
+    .withMessage('Mô tả không được vượt quá 1000 ký tự')
+];
+
 // Middleware xử lý kết quả validation
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -68,5 +82,6 @@ const handleValidationErrors = (req, res, next) => {
 
 module.exports = {
   validateAthlete,
+  validateAgeGroup,
   handleValidationErrors
 }; 

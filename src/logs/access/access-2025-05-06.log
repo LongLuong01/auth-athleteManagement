@@ -323,3 +323,11 @@
 2025-05-06 16:45:40:4540 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-06 16:45:41:4541 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-06 16:45:53:4553 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-06 16:46:02:462 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:02 +0000] "GET /api/metric-groups HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:26:4626 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:26 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:27:4627 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:27 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:27:4627 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:27 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:28:4628 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:28 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:29:4629 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:29 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:29:4629 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:29 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m
+2025-05-06 16:46:30:4630 [35mhttp[39m: [35m::1 - - [06/May/2025:09:46:30 +0000] "GET /api/metric-groups/ HTTP/1.1" 200 279 "-" "PostmanRuntime/7.43.4"[39m

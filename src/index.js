@@ -21,6 +21,8 @@ const healthRecordsRoutes = require("./routes/healthRecords.routes");
 const metricGroupRoutes = require("./routes/metricGroup.routes")
 const healthMetricRoutes = require("./routes/healthMetric.routes")
 const wellbeingRoutes = require("./routes/wellbeing.routes");
+const ageGroupRoutes = require("./routes/ageGroup.routes");
+const athleteAgeGroupRoutes = require("./routes/athleteAgeGroup.routes");
 
 // run app
 const app = express();
@@ -38,6 +40,8 @@ app.use("/api/health-records", healthRecordsRoutes)
 app.use("/api/metric-groups", metricGroupRoutes);
 app.use("/api/health-metrics", healthMetricRoutes);
 app.use("/api/wellbeing", wellbeingRoutes);
+app.use("/api/age-groups", ageGroupRoutes);
+app.use("/api/athletes", athleteAgeGroupRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
