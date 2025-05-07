@@ -47,8 +47,16 @@ const validateAthlete = [
     .withMessage('Mật khẩu không được để trống')
     .isLength({ min: 6 })
     .withMessage('Mật khẩu phải có ít nhất 6 ký tự')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/)
-    .withMessage('Mật khẩu phải có ít nhất 1 ký tự thường, 1 ký tự hoa và 1 ký tự đặc biệt')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)
+    .withMessage('Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt'),
+
+  // Khi cập nhật, mật khẩu là tùy chọn
+  body('password')
+    .optional()
+    .isLength({ min: 6 })
+    .withMessage('Mật khẩu phải có ít nhất 6 ký tự')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)
+    .withMessage('Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt')
 ];
 
 // Validation rules cho age_group

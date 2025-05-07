@@ -6,16 +6,25 @@ const AthleteService = {
     const connection = await pool.getConnection();
     try {
       await connection.beginTransaction();
-      const athleteId = await AthleteModel.create(data, connection);
-
-      if (data.age_group_id) {
-        const ageGroupIds = Array.isArray(data.age_group_id) ? data.age_group_id : [data.age_group_id];
-        await AthleteModel.addAgeGroups(athleteId, ageGroupIds, connection);
+      
+      // Kiểm tra email tồn tại
+      const [existingAthletes] = await connection.query(
+        "SELECT id FROM athlete WHERE email = ?",
+        [data.email]
+      );
+      
+      if (existingAthletes.length > 0) {
+        throw new Error("Email đã được sử dụng!");
       }
 
-      if (data.sport_id) {
-        const sportIds = Array.isArray(data.sport_id) ? data.sport_id : [data.sport_id];
-        await AthleteModel.addSports(athleteId, sportIds, connection);
+      const athleteId = await AthleteModel.create(data, connection);
+
+      if (data.age_group_ids) {
+        await AthleteModel.addAgeGroups(athleteId, data.age_group_ids, connection);
+      }
+
+      if (data.sport_ids) {
+        await AthleteModel.addSports(athleteId, data.sport_ids, connection);
       }
 
       await connection.commit();
@@ -40,6 +49,18 @@ const AthleteService = {
   },
 
   async updateAthlete(id, data) {
+    // Kiểm tra email tồn tại (nếu có thay đổi email)
+    if (data.email) {
+      const [existingAthletes] = await pool.query(
+        "SELECT id FROM athlete WHERE email = ? AND id != ?",
+        [data.email, id]
+      );
+      
+      if (existingAthletes.length > 0) {
+        throw new Error("Email đã được sử dụng!");
+      }
+    }
+
     return await AthleteModel.update(id, data);
   },
 

@@ -1,10 +1,24 @@
 const pool = require("../config/db");
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;  // Độ phức tạp của mã hóa
 
 const AthleteModel = {
   async create(data, connection) {
+    // Mã hóa mật khẩu trước khi lưu
+    const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+
     const [result] = await connection.query(
       "INSERT INTO athlete (fullname, date_of_birth, gender, phone, email, address, avatar, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [data.fullname, data.date_of_birth, data.gender, data.phone, data.email, data.address, data.avatar, data.password]
+      [
+        data.fullname, 
+        data.date_of_birth, 
+        data.gender, 
+        data.phone, 
+        data.email, 
+        data.address, 
+        data.avatar, 
+        hashedPassword  // Sử dụng mật khẩu đã mã hóa
+      ]
     );
     return result.insertId;
   },
@@ -43,10 +57,28 @@ const AthleteModel = {
   },
 
   async update(id, data) {
-    const [result] = await pool.query(
-      "UPDATE athlete SET fullname = ?, date_of_birth = ?, gender = ?, phone = ?, email = ?, address = ?, avatar = ?, password = ? WHERE id = ?",
-      [data.fullname, data.date_of_birth, data.gender, data.phone, data.email, data.address, data.avatar, data.password, id]
-    );
+    let sql = "UPDATE athlete SET fullname = ?, date_of_birth = ?, gender = ?, phone = ?, email = ?, address = ?, avatar = ?";
+    let params = [
+      data.fullname,
+      data.date_of_birth,
+      data.gender,
+      data.phone,
+      data.email,
+      data.address,
+      data.avatar
+    ];
+
+    // Chỉ cập nhật mật khẩu nếu có gửi mật khẩu mới
+    if (data.password) {
+      const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+      sql += ", password = ?";
+      params.push(hashedPassword);
+    }
+
+    sql += " WHERE id = ?";
+    params.push(id);
+
+    const [result] = await pool.query(sql, params);
     return result.affectedRows;
   },
 

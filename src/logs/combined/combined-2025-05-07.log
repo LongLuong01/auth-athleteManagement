@@ -103,3 +103,16 @@
 2025-05-07 13:28:42:2842 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-07 13:28:45:2845 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-07 13:28:55:2855 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:30:34:3034 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:56:56:5656 [31merror[39m: [31mLỗi khi thêm vận động viên: Duplicate entry 'longluong35@gmail.com' for key 'athlete.email'[39m
+2025-05-07 14:20:10:2010 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:20:26:2026 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:21:35:2135 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:22:26:2226 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:22:41:2241 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:22:49:2249 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:22:57:2257 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:23:10:2310 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:23:59:2359 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:24:23:2423 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 14:24:32:2432 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
