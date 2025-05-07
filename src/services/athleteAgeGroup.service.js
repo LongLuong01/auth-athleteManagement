@@ -53,6 +53,24 @@ const AthleteAgeGroupService = {
     }
 
     return await AthleteAgeGroupModel.removeAgeGroup(athleteId, ageGroupId);
+  },
+
+  async addAgeGroupsToAthlete(athleteId, data) {
+    // Check if athlete exists
+    const athleteExists = await AthleteAgeGroupModel.checkAthleteExists(athleteId);
+    if (!athleteExists) {
+      throw new Error("Athlete not found");
+    }
+
+    // Check if all age groups exist
+    for (const ageGroupId of data.age_group_ids) {
+      const ageGroupExists = await AthleteAgeGroupModel.checkAgeGroupExists(ageGroupId);
+      if (!ageGroupExists) {
+        throw new Error(`Nhóm tuổi với id ${ageGroupId} không tồn tại`);
+      }
+    }
+
+    return await AthleteAgeGroupModel.addAgeGroups(athleteId, data.age_group_ids);
   }
 };
 

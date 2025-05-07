@@ -1,5 +1,6 @@
 const AthleteAgeGroupService = require("../services/athleteAgeGroup.service");
 const { logger } = require("../config/logger");
+const { validationResult } = require("express-validator");
 
 // Lấy danh sách nhóm tuổi của vận động viên
 const getAthleteAgeGroups = async (req, res) => {
@@ -14,14 +15,22 @@ const getAthleteAgeGroups = async (req, res) => {
 
 // Thêm nhóm tuổi cho vận động viên
 const addAgeGroupToAthlete = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
-    const result = await AthleteAgeGroupService.addAgeGroupToAthlete(
+    const result = await AthleteAgeGroupService.addAgeGroupsToAthlete(
       req.params.athleteId,
-      req.body.age_group_id
+      req.body
     );
-    res.status(201).json({ message: "Thêm nhóm tuổi thành công!", id: result });
+    res.status(201).json({
+      message: "Thêm nhóm tuổi thành công!",
+      data: result
+    });
   } catch (error) {
-    if (error.message === "Athlete not found" || error.message === "Age group not found") {
+    if (error.message === "Athlete not found" || error.message.includes("không tồn tại")) {
       return res.status(404).json({ message: error.message });
     }
     logger.error("Lỗi khi thêm nhóm tuổi cho vận động viên:", error);

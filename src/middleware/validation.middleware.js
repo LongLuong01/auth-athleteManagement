@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, param } = require('express-validator');
 
 // Validation rules cho athlete
 const validateAthlete = [
@@ -98,10 +98,24 @@ const validateSportCategory = [
     .isInt().withMessage("sport_id phải là số nguyên")
 ];
 
+const validateAthleteAgeGroup = [
+  param('athleteId')
+    .isInt()
+    .withMessage('Athlete ID phải là số nguyên'),
+  body('age_group_ids')
+    .isArray()
+    .withMessage('age_group_ids phải là một mảng')
+    .notEmpty()
+    .withMessage('age_group_ids không được rỗng')
+    .custom((value) => value.every(Number.isInteger))
+    .withMessage('Tất cả các phần tử trong age_group_ids phải là số nguyên')
+];
+
 module.exports = {
   validateAthlete,
   validateAgeGroup,
   validateSport,
   validateSportCategory,
-  handleValidationErrors
+  handleValidationErrors,
+  validateAthleteAgeGroup
 }; 

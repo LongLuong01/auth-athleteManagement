@@ -77,6 +77,37 @@ const AthleteAgeGroupModel = {
   async checkAgeGroupExists(ageGroupId) {
     const [rows] = await pool.query("SELECT id FROM age_group WHERE id = ?", [ageGroupId]);
     return rows.length > 0;
+  },
+
+  async addAgeGroups(athleteId, ageGroupIds) {
+    const connection = await pool.getConnection();
+    try {
+      await connection.beginTransaction();
+      
+      const results = [];
+      // Thêm từng nhóm tuổi
+      for (const ageGroupId of ageGroupIds) {
+        const [result] = await connection.query(
+          "INSERT INTO athlete_age_group (athlete_id, age_group_id, active) VALUES (?, ?, true)",
+          [athleteId, ageGroupId]
+        );
+        results.push({
+          age_group_id: ageGroupId,
+          active: true
+        });
+      }
+
+      await connection.commit();
+      return {
+        athlete_id: athleteId,
+        age_groups: results
+      };
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
+    }
   }
 };
 

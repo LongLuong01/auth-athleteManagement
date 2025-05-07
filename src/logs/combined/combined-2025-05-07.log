@@ -70,3 +70,20 @@
 2025-05-07 10:10:18:1018 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-07 10:10:28:1028 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-07 10:10:33:1033 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 10:10:33:1033 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:35:20:3520 [31merror[39m: [31mLỗi khi thêm nhóm tuổi cho vận động viên: Duplicate entry '1-3' for key 'athlete_age_group.PRIMARY'[39m
+2025-05-07 11:37:00:370 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:37:03:373 [31merror[39m: [31mLỗi khi thêm nhóm tuổi cho vận động viên: Duplicate entry '15-3' for key 'athlete_age_group.PRIMARY'[39m
+2025-05-07 11:47:45:4745 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:48:03:483 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:48:44:4844 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:48:48:4848 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:49:07:497 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:49:14:4914 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:49:23:4923 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:49:43:4943 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:49:59:4959 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:50:08:508 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:51:48:5148 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:52:08:528 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:58:57:5857 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
