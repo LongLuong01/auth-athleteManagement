@@ -80,8 +80,28 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
+const validateSport = [
+  body("name")
+    .notEmpty().withMessage("Tên môn thể thao không được để trống")
+    .isLength({ max: 100 }).withMessage("Tên môn thể thao không được vượt quá 100 ký tự"),
+  body("description")
+    .optional()
+    .isLength({ max: 1000 }).withMessage("Mô tả không được vượt quá 1000 ký tự")
+];
+
+const validateSportCategory = [
+  body("group_sport_id")
+    .notEmpty().withMessage("group_sport_id là bắt buộc")
+    .isInt().withMessage("group_sport_id phải là số nguyên"),
+  body("sport_id")
+    .notEmpty().withMessage("sport_id là bắt buộc")
+    .isInt().withMessage("sport_id phải là số nguyên")
+];
+
 module.exports = {
   validateAthlete,
   validateAgeGroup,
+  validateSport,
+  validateSportCategory,
   handleValidationErrors
 }; 

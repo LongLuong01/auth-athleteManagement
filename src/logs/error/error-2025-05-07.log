@@ -1,0 +1,14 @@
+2025-05-07 10:00:06:06 [31merror[39m: [31mLỗi khi lấy danh sách môn thể thao của vận động viên: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as.*, s.name as sport_name, s.description [39m
+[31m       FROM athlete_sport as[39m
+[31m       J' at line 1[39m
+2025-05-07 10:01:07:17 [31merror[39m: [31mLỗi khi thêm môn thể thao cho vận động viên: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', 2' at line 1[39m
+2025-05-07 10:04:31:431 [31merror[39m: [31mLỗi khi thêm môn thể thao cho vận động viên: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', 2' at line 1[39m
+2025-05-07 10:05:31:531 [31merror[39m: [31mLỗi khi lấy danh sách môn thể thao của vận động viên: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as.*, s.name as sport_name, s.description [39m
+[31m       FROM athlete_sport as[39m
+[31m       J' at line 1[39m
+2025-05-07 10:05:50:550 [31merror[39m: [31mLỗi khi lấy danh sách môn thể thao của vận động viên: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as.*, s.name as sport_name, s.description [39m
+[31m       FROM athlete_sport as[39m
+[31m       J' at line 1[39m
+2025-05-07 10:07:07:77 [31merror[39m: [31mLỗi khi lấy danh sách môn thể thao của vận động viên: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as.*, s.name as sport_name, s.description [39m
+[31m       FROM athlete_sport as[39m
+[31m       J' at line 1[39m
