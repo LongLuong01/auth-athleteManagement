@@ -87,3 +87,19 @@
 2025-05-07 11:51:48:5148 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-07 11:52:08:528 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
 2025-05-07 11:58:57:5857 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 11:58:59:5859 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:19:10:1910 [31merror[39m: [31m400 - Unexpected token '"', "[39m
+[31m  "sport_ids"... is not valid JSON - /api/athletes/1/sports - POST - ::1[39m
+2025-05-07 13:21:17:2117 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:21:49:2149 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:22:01:221 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:22:22:2222 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:22:37:2237 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:22:42:2242 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:25:52:2552 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:26:11:2611 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:26:22:2622 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:26:54:2654 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:28:42:2842 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:28:45:2845 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m
+2025-05-07 13:28:55:2855 [32minfo[39m: [32mServer đang chạy tại http:localhost:5000[39m

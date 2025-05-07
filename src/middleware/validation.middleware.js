@@ -111,11 +111,25 @@ const validateAthleteAgeGroup = [
     .withMessage('Tất cả các phần tử trong age_group_ids phải là số nguyên')
 ];
 
+const validateAthleteSport = [
+  param('athleteId')
+    .isInt()
+    .withMessage('Athlete ID phải là số nguyên'),
+  body('sport_ids')
+    .isArray()
+    .withMessage('sport_ids phải là một mảng')
+    .notEmpty()
+    .withMessage('sport_ids không được rỗng')
+    .custom((value) => value.every(Number.isInteger))
+    .withMessage('Tất cả các phần tử trong sport_ids phải là số nguyên')
+];
+
 module.exports = {
   validateAthlete,
   validateAgeGroup,
   validateSport,
   validateSportCategory,
   handleValidationErrors,
-  validateAthleteAgeGroup
+  validateAthleteAgeGroup,
+  validateAthleteSport
 }; 

@@ -47,7 +47,7 @@ app.use("/api/age-groups", ageGroupRoutes);
 app.use("/api/athletes", athleteAgeGroupRoutes);
 app.use("/api/sports", sportRoutes);
 app.use("/api/sport-categories", sportCategoryRoutes);
-app.use("/api", athleteSportRoutes);
+app.use("/api/athletes", athleteSportRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

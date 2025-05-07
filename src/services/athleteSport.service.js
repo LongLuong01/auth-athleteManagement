@@ -9,20 +9,22 @@ const AthleteSpotService = {
     return await AthleteSpotModel.getBySportId(sportId);
   },
 
-  async addSportToAthlete(athleteId, sportId) {
+  async addSportsToAthlete(athleteId, data) {
     // Check if athlete exists
     const athleteExists = await AthleteSpotModel.checkAthleteExists(athleteId);
     if (!athleteExists) {
       throw new Error("Athlete not found");
     }
 
-    // Check if sport exists
-    const sportExists = await AthleteSpotModel.checkSportExists(sportId);
-    if (!sportExists) {
-      throw new Error("Sport not found");
+    // Check if all sports exist
+    for (const sportId of data.sport_ids) {
+      const sportExists = await AthleteSpotModel.checkSportExists(sportId);
+      if (!sportExists) {
+        throw new Error(`Sport with id ${sportId} not found`);
+      }
     }
 
-    return await AthleteSpotModel.addSport(athleteId, sportId);
+    return await AthleteSpotModel.addSports(athleteId, data.sport_ids);
   },
 
   async updateAthleteSports(athleteId, sportIds) {

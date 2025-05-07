@@ -23,12 +23,35 @@ const AthleteSpotModel = {
     return rows;
   },
 
-  async addSport(athleteId, sportId, active = true) {
-    const [result] = await pool.query(
-      "INSERT INTO athlete_sport (athlete_id, sport_id, active) VALUES (?, ?, ?)",
-      [athleteId, sportId, active]
-    );
-    return result.insertId;
+  async addSports(athleteId, sportIds) {
+    const connection = await pool.getConnection();
+    try {
+      await connection.beginTransaction();
+      
+      const results = [];
+      // Thêm từng môn thể thao
+      for (const sportId of sportIds) {
+        const [result] = await connection.query(
+          "INSERT INTO athlete_sport (athlete_id, sport_id, active) VALUES (?, ?, true)",
+          [athleteId, sportId]
+        );
+        results.push({
+          sport_id: sportId,
+          active: true
+        });
+      }
+
+      await connection.commit();
+      return {
+        athlete_id: athleteId,
+        sports: results
+      };
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
+    }
   },
 
   async updateSports(athleteId, sportIds) {
