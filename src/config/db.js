@@ -13,7 +13,7 @@ require('dotenv').config();
 // });
 
 const pool = mysql.createPool({
-  host: 'localhost',
+  host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: 'root',
   password: process.env.DB_PASSWORD,
